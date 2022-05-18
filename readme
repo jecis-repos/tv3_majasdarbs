@@ -4,7 +4,7 @@ docker-compose up -d
 
 To copy database dump to mariaDB docker container root path, use this command:
 
-docker cp wdump.sql dockerwordpress_mariadb_1:/
+docker cp wdump.sql <mariaDB-docker-container-name>:/
 
 To import database dump, use this command:
 
