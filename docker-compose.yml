@@ -12,7 +12,7 @@ services:
   wordpress:
     image: docker.io/bitnami/wordpress:5
     ports:
-      - '88:8080'
+      - '80:8080'
       - '443:8443'
     volumes:
       - 'wordpress_data:/bitnami/wordpress'
