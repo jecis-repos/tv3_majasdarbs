@@ -1,4 +1,4 @@
-To create docker containers, use this command:
+To create wordpress docker containers, use this command:
 
 docker-compose up -d
 
