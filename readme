@@ -1,0 +1,7 @@
+curl -sSL https://raw.githubusercontent.com/bitnami/bitnami-docker-wordpress/master/docker-compose.yml > docker-compose.yml
+docker-compose up -d
+
+docker exec -i <mariadb-docker-container-name> sh -c 'exec mysql -u root bitnami_wordpress' < ./wdump.sql
+
+admin
+ie102ptih$VQpFWFjO
