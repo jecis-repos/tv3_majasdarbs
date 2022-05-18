@@ -1,7 +1,7 @@
-curl -sSL https://raw.githubusercontent.com/bitnami/bitnami-docker-wordpress/master/docker-compose.yml > docker-compose.yml
+To create docker containers, use this command:
+
 docker-compose up -d
 
-docker exec -i <mariadb-docker-container-name> sh -c 'exec mysql -u root bitnami_wordpress' < ./wdump.sql
+To import database dump, use this command:
 
-admin
-ie102ptih$VQpFWFjO
+docker exec -i <mariadb-docker-container-name> sh -c 'exec mysql -u root bitnami_wordpress' < ./wdump.sql
