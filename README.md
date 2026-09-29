@@ -1,11 +1,15 @@
-To create wordpress docker containers, use this command:
+# WordPress exercise
 
-docker-compose up -d
+Run the WordPress database fixture locally with Docker Compose:
 
-To copy database dump to mariaDB docker container root path, use this command:
+```sh
+cp .env.example .env
+docker compose up -d --wait
+docker compose exec wordpress php /opt/exercise/bootstrap.php
+```
 
-docker cp wdump.sql <mariaDB-docker-container-name>:/
+Open http://localhost:8081. The fixture is imported on the first start of a new database volume. The bootstrap command upgrades its schema and activates the bundled default theme if the historical theme is unavailable.
 
-To import database dump, use this command:
+This repository contains a database dump, not a backup of the original WordPress plugins, themes or uploads. The local page may therefore differ from the historical site.
 
-docker exec -i <mariadb-docker-container-name> sh -c 'exec mysql -u root bitnami_wordpress' < ./wdump.sql
+Use `HTTP_PORT` in `.env` to choose another local port. `docker compose down` stops the containers and retains data. No manual database import or container-name lookup is required.

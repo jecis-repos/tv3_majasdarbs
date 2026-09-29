@@ -1,0 +1,27 @@
+name: Docker startup
+on:
+  push:
+    branches: [master]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      COMPOSE_PROJECT_NAME: wordpress-exercise-ci
+    steps:
+      - uses: actions/checkout@v4
+      - run: cp .env.example .env
+      - run: docker compose config --quiet
+      - run: docker compose up -d --wait --wait-timeout 180
+      - run: docker compose exec -T wordpress php /opt/exercise/bootstrap.php
+      - name: Homepage and login
+        run: |
+          curl --fail --location http://localhost:8081/ -o /tmp/home.html
+          test -s /tmp/home.html
+          curl --fail http://localhost:8081/wp-login.php -o /tmp/login.html
+          grep -q 'loginform' /tmp/login.html
+      - if: always()
+        run: docker compose down --volumes --remove-orphans
